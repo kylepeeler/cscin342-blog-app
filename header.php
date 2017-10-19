@@ -1,3 +1,6 @@
+<?php
+error_reporting(E_ALL); ini_set('display_errors', '1');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,7 +27,7 @@
             <a class="nav-link" href="#">About</a>
             <a class="nav-link" href="#">Page 1</a>
             <a class="nav-link" href="#">Page 2</a>
-            <a class="nav-link" href="./login">Admin</a>
+            <a class="nav-link" href="./login">Login</a>
         </nav>
     </div>
 </div>

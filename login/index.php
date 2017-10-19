@@ -1,4 +1,30 @@
-
+<?php
+include_once ('../includes/User.php');
+session_start();
+if (isset($_SESSION['user']) && $_SESSION['user'] != null){
+    if ($_SESSION['user']->isAdmin()){
+        header('Location: ../admin');
+    }else{
+        header('Location: /');
+    }
+}else if (isset($_POST['action']) && $_POST['action'] == 'login'){
+    $user = new User();
+    $user->setCredentials($_POST['email'], $_POST['password']);
+    if ($user->isValidCredentials()){
+        $user->fetchFromDB();
+        var_dump($user);
+        $_SESSION['user'] = $user;
+        if ($_SESSION['user']->isAdmin()){
+            //echo 'is admin';
+            header('Location: ../admin');
+        }else{
+            header('Location: ../index.php');
+        }
+    }else{
+        echo 'invalid login';
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,18 +46,18 @@
 
 <div class="container">
 
-    <form class="form-signin" >
+    <form class="form-signin" method="post">
         <h2 class="form-signin-heading">Kyle's Blog Login</h2>
         <label for="inputEmail" class="sr-only">Email address</label>
-        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus name="email">
         <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" value="remember-me"> Remember me
-            </label>
-        </div>
-        <a href="../admin"><button class="btn btn-lg btn-primary btn-50" type="button">Sign in</button></a>
+        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required name="password">
+<!--        <div class="checkbox">-->
+<!--            <label>-->
+<!--                <input type="checkbox" value="remember-me"> Remember me-->
+<!--            </label>-->
+<!--        </div>-->
+        <button class="btn btn-lg btn-primary btn-50" type="submit" name="action" value="login">Sign in</button>
         <a href="../register.php"><button type="button" class="btn btn-lg btn-secondary btn-50" formnovalidate>Register</button></a>
         <br>
         <a href="..">< Return to blog</a>
