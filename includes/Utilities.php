@@ -6,7 +6,6 @@
  * Time: 11:06 PM
  */
 
-include_once ('password_hash.php');
 include_once ('DBConnect.php');
 //check if the password is 10 characters or greater
 function match_pw_length($pw){
@@ -40,7 +39,7 @@ function valid_activation_code($code){
 
 //function to generate and send a valid email
 function send_activation_email($address, $activation_code){
-    $message = "Thank you for registering! Please click the link/go to the following URL below to activate your account: \n\n http://corsair.cs.iupui.edu:21231/courseProject/app/register.php?email=".$address."&code=".$activation_code;
+    $message = "Thank you for registering! Please click the link/go to the following URL below to activate your account: \n\n http://corsair.cs.iupui.edu:21231/courseProject/app/register.php?email=".htmlspecialchars($address)."&code=".$activation_code;
     mail($address, "Please activate account", $message);
 }
 

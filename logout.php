@@ -7,4 +7,4 @@
  */
 session_start();
 $_SESSION['user'] = null;
-header('location: ./login');
+header('location: ./login/index.php?signout=true');

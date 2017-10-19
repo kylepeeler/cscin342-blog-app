@@ -1,6 +1,4 @@
 <?php include('header.php'); ?>
-<?php include_once('includes/util.php');?>
-<?php include_once('includes/Posts.php');?>
 
 <div class="container">
 

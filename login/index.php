@@ -5,7 +5,7 @@ if (isset($_SESSION['user']) && $_SESSION['user'] != null){
     if ($_SESSION['user']->isAdmin()){
         header('Location: ../admin');
     }else{
-        header('Location: /');
+        header('Location: ./logout.php');
     }
 }else if (isset($_POST['action']) && $_POST['action'] == 'login'){
     $user = new User();
@@ -15,14 +15,21 @@ if (isset($_SESSION['user']) && $_SESSION['user'] != null){
         var_dump($user);
         $_SESSION['user'] = $user;
         if ($_SESSION['user']->isAdmin()){
-            //echo 'is admin';
             header('Location: ../admin');
         }else{
-            header('Location: ../index.php');
+            echo "<div class='container'><div class=\"alert alert-warning\" role=\"alert\">
+  User is not an admin, user functionality (i.e. commenting coming soon!)
+</div></div>";
         }
     }else{
-        echo 'invalid login';
+        echo "<div class='container'><div class=\"alert alert-danger\" role=\"alert\">
+  Invalid login.
+</div></div>";
     }
+}else if (isset($_GET['signout']) && $_GET['signout'] == 'true'){
+    echo "<div class='container'><div class=\"alert alert-info\" role=\"alert\">
+  You have signed out.
+</div></div>";
 }
 ?>
 <!DOCTYPE html>
